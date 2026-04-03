@@ -1,0 +1,7 @@
+groq
+streamlit
+langchain==0.3.25
+python-dotenv
+requests
+beautifulsoup4
+langchain-groq==0.2.3
