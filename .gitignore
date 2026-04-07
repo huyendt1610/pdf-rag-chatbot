@@ -26,3 +26,8 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Vector index
+vector_index/
+*.faiss
+*.pkl

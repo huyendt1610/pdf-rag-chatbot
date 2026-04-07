@@ -6,14 +6,14 @@ client = chromadb.Client() # PersistentClient(path="./chroma_data") # default is
 
 collection = client.get_or_create_collection(name="my_collection") # DefaultEmbeddingFunction
 
-with open("policies.txt", "r", encoding="utf-8") as f:
+with open("data/policies.txt", "r", encoding="utf-8") as f:
     policies: list[str] = f.read().splitlines()
 
 
 collection.add(
     ids=[str(uuid.uuid4()) for _ in policies],
     documents=policies,
-    metadatas=[{"line_number": i} for i in range(len(policies))],
+    metadatas=[{"line_number": i} for i in  range(len(policies))],
 )
 
 print(collection.peek(5)) # return both uuids, embeddings, documents, and metadatas for the first 5 entries in the collection
