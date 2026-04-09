@@ -1,6 +1,6 @@
-# Groq API Demo
+# PDF RAG Chatbot
 
-A Python project demonstrating how to use the [Groq API](https://groq.com/) for fast LLM inference, including streaming completions, web scraping, RAG pipelines, and Streamlit chat apps.
+A Python project demonstrating how to use the [Groq API](https://groq.com/) and [OpenAI API](https://platform.openai.com/) for fast LLM inference, including streaming completions, web scraping, RAG pipelines, and Streamlit chat apps.
 
 ## Features
 
@@ -15,9 +15,10 @@ A Python project demonstrating how to use the [Groq API](https://groq.com/) for 
 ## Project Structure
 
 ```
-groq-api/
-├── groq_api.py              # Streaming, non-streaming, and web-scraping demos
-├── chroma_db.py             # ChromaDB vector search demo
+pdf-rag-chatbot/
+├── examples/
+│   ├── groq_api.py          # Streaming, non-streaming, and web-scraping demos
+│   └── chroma_db.py         # ChromaDB vector search demo
 ├── apps/
 │   ├── groq_chat/app.py     # Streamlit chat app powered by Groq + LangChain
 │   ├── openai_chat/app.py   # RAG app (OpenAI + FAISS, no upload UI)
@@ -26,8 +27,13 @@ groq-api/
 │   ├── ai_agent.ipynb       # AI agent notebook
 │   └── check_semantic_search.ipynb
 ├── data/
-│   └── papers/              # PDF files for RAG indexing
-└── vector_index/            # Persisted FAISS index
+│   ├── policies.txt         # Sample text for ChromaDB demo
+│   ├── nvda_news_1.txt      # Sample news text
+│   ├── movies.csv           # Sample CSV data
+│   ├── sample_text.csv      # Sample CSV data
+│   └── papers/              # PDF files for RAG indexing (created at runtime)
+├── vector_index/            # Persisted FAISS index (created at runtime)
+└── requirements.txt
 ```
 
 ## Requirements
@@ -63,7 +69,7 @@ groq-api/
 ### Groq API (streaming & web scraping)
 
 ```bash
-python groq_api.py
+python examples/groq_api.py
 ```
 
 By default runs `stream_chat_completionwith_web_scraping`, which fetches Paul Graham's *Great Work* essay and summarizes it in 10 points. To try other modes, uncomment the relevant lines in `main()`:
@@ -78,7 +84,7 @@ def main():
 ### ChromaDB Vector Search
 
 ```bash
-python chroma_db.py
+python examples/chroma_db.py
 ```
 
 Reads lines from `data/policies.txt`, adds them to an in-memory ChromaDB collection with auto-generated embeddings, then queries the collection with semantic search questions.
@@ -117,9 +123,9 @@ Same RAG pipeline as above, with an added sidebar for uploading PDF files direct
 
 | Script / App | Model |
 |---|---|
-| `groq_api.py` — `stream_chat_completion` | `llama-3.1-8b-instant` |
-| `groq_api.py` — `non_stream_chat_completion` | `llama-3.1-8b-instant` |
-| `groq_api.py` — `stream_chat_completionwith_web_scraping` | `llama-3.3-70b-versatile` |
+| `examples/groq_api.py` — `stream_chat_completion` | `llama-3.1-8b-instant` |
+| `examples/groq_api.py` — `non_stream_chat_completion` | `llama-3.1-8b-instant` |
+| `examples/groq_api.py` — `stream_chat_completionwith_web_scraping` | `llama-3.3-70b-versatile` |
 | `apps/groq_chat/app.py` | selectable (default: `llama-3.3-70b-versatile`) |
 | `apps/openai_chat/app.py` / `apps/rag/app.py` — embeddings | `text-embedding-3-small` |
 | `apps/openai_chat/app.py` / `apps/rag/app.py` — QA | `gpt-4o-mini` |
